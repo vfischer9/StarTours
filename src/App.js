@@ -1,23 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Home from './components/Home';
-import Nav from './components/Nav';
-import { Dimmer, Loader } from 'semantic-ui-react';
-import Planets from './components/Planets';
+import './App.css';
 
 function App() {
-    const [people, setPeople] = useState([]);
     const [planets, setPlanets] = useState([]);
     const [spacecraft, setSpacecraft] = useState([]);
     const [species, setSpecies] = useState([]);
-    const [passengerName, setPassengerName] = useState("");
     const [loading, setLoading] = useState(true);
+    const [selectedDestPlanet, setSelectedDestPlanet] = useState("__");
+    const [selectedDepartPlanet, setSelectedDepartPlanet] = useState("__");
+    const [selectedTripType, setSelectedTripType] = useState("__");
+    const [selectedSpacecraft, setSelectedSpacecraft] = useState("__");
+    const [selectedSpecies, setSelectedSpecies] = useState("__");
+    const [passengerName, setPassengerName] = useState("__");
+
+    const [planetResidents, setPlanetResidents] = useState("__");
 
     useEffect(() => {
-      async function fetchPeople(){
-        let res = await fetch('https://swapi.dev/api/people/?format=json');
-        let data = await res.json();
-        setPeople(data.results);
-      }
 
       async function fetchPlanets(){
         let res = await fetch('https://swapi.dev/api/planets/?format=json');
@@ -37,29 +36,85 @@ function App() {
         setSpecies(data.results);
       }
 
-      fetchPeople();
+      async function findResidents(){
+        setPlanetResidents(planets[0].residents);
+      }
+
+      // fetchPeople();
       fetchPlanets();
       fetchSpacecraft();
       fetchSpecies();
+      findResidents();
       setLoading(false);
 
     }, [])
 
-    console.log("people: ", people);
+    // console.log("people: ", people);
     console.log("planets: ", planets);
     console.log("spacecraft: ", spacecraft);
     console.log("species: ", species);
+    console.log("residents: ", planetResidents);
+
+    //display if API cannot be fetched for some reason
+    if (loading) return <div> <h1> Please wait some time.... </h1> </div>;
 
     return(
       <div>
-        { loading ? (
-          <Dimmer active inverted>
-            <Loader inverted>Loading</Loader>
-          </Dimmer>
-        ) : (
-          <Nav />
+        <h1>Star Tours!</h1>
+        <p>Welcome to Star Tours! Here, you can book a trip anywhere across the galaxy. Travel to Coruscant in the Millennium Falcon, or to Tatooine in the Executor. Star 
+        Tours has a wide range of various available spacecrafts and destinations. The galaxy is yours for the taking! <br /> May the force be with you. </p>
+        <br />
+
+        <p>Please enter your name: </p>
+        <input onChange={event => setPassengerName(event.target.value)}></input>
+
+        <p>Please choose your species: </p>
+        {species.map((species, i) => {
+            return (
+            <button key={i} name='species' value={species.name} onClick={() => setSelectedSpecies(species.name)}> {species.name} </button>
         )
-        }
+        })}
+
+        <p>Please choose your departure planet: </p>
+        {planets.map((planet, i) => {
+            return (
+            <button key={i} name='planet' value={planet.name} onClick={() => setSelectedDepartPlanet(planet.name)}> {planet.name} </button>
+        )
+        })}
+
+        <p>Please choose your destination planet: </p>
+        {planets.map((planet, i) => {
+            return (
+            <button key={i} name='planet' id='destPlanet' value={planet.name} onClick={() => setSelectedDestPlanet(planet.name)}> {planet.name} </button>
+        )
+        })}
+
+        <p>Please choose from the available spacecraft: <br /><span id='chooseNewShip'>*You cannot choose military spacecraft.</span></p>
+        {spacecraft.map((spacecraft, i) => {
+           if(spacecraft.name !== "Death Star"){
+            return (
+              <button key={i} name='spacecraft' value={spacecraft.name} onClick={() => setSelectedSpacecraft(spacecraft.name)}> {spacecraft.name} </button>
+            )
+           } else {
+             return <button disabled key={i} name='spacecraft' value={spacecraft.name} onClick={() => setSelectedSpacecraft(spacecraft.name)}> {spacecraft.name} </button>
+           }       
+        })}
+
+        <p>One-way or round-trip?</p>
+        <button id='trip-type' value="One-way" onClick={() => setSelectedTripType("one-way")}> One-way </button>
+        <button id='trip-type' value="Round-trip" onClick={() => setSelectedTripType("round")}> Round-trip </button>      
+
+        <h3>Trip Summary: </h3>
+
+        <p>You've input {passengerName} as your name. </p>
+        <p>You've selected {selectedSpecies} as your species. </p>
+        <p>You've selected {selectedDepartPlanet} as your departure planet. </p>
+        <p>You've selected {selectedDestPlanet} as your destination planet. </p>  
+        <p>You've selected the {selectedSpacecraft} as your spacecraft. </p>
+        <p>You've selected a {selectedTripType} trip. </p>
+
+        <p>The residents in {selectedDestPlanet} are {planetResidents}</p>
+        
       </div>
     )
 
