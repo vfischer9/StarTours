@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Home from './components/Home';
 import './App.css';
+import Calendar from 'react-calendar'
 
 function App() {
     const [planets, setPlanets] = useState([]);
@@ -15,6 +16,9 @@ function App() {
     const [passengerName, setPassengerName] = useState("__");
 
     const [planetResidents, setPlanetResidents] = useState("__");
+
+    const [startValue, onStartChange] = useState(new Date());
+    const [endValue, onEndChange] = useState(new Date());
 
     useEffect(() => {
 
@@ -36,24 +40,24 @@ function App() {
         setSpecies(data.results);
       }
 
-      async function findResidents(){
-        setPlanetResidents(planets[0].residents);
-      }
+      // async function findResidents(){
+      //   setPlanetResidents(planets[0].residents);
+      // }
 
-      // fetchPeople();
       fetchPlanets();
       fetchSpacecraft();
       fetchSpecies();
-      findResidents();
+      // findResidents();
       setLoading(false);
 
     }, [])
 
-    // console.log("people: ", people);
     console.log("planets: ", planets);
     console.log("spacecraft: ", spacecraft);
     console.log("species: ", species);
     console.log("residents: ", planetResidents);
+    console.log("start: ", startValue);
+    console.log("end: ", endValue);
 
     //display if API cannot be fetched for some reason
     if (loading) return <div> <h1> Please wait some time.... </h1> </div>;
@@ -102,7 +106,17 @@ function App() {
 
         <p>One-way or round-trip?</p>
         <button id='trip-type' value="One-way" onClick={() => setSelectedTripType("one-way")}> One-way </button>
-        <button id='trip-type' value="Round-trip" onClick={() => setSelectedTripType("round")}> Round-trip </button>      
+        <button id='trip-type' value="Round-trip" onClick={() => setSelectedTripType("round")}> Round-trip </button>    
+
+        <p>Please choose a start-date: </p>  
+        <div className='calendar'>
+          <Calendar onChange={onStartChange} value={startValue} />
+        </div>
+        
+        <p>Please choose an end-date: </p>
+        <div className='calendar'>
+          <Calendar onChange={onEndChange} value={endValue} />
+        </div>
 
         <h3>Trip Summary: </h3>
 
@@ -113,7 +127,9 @@ function App() {
         <p>You've selected the {selectedSpacecraft} as your spacecraft. </p>
         <p>You've selected a {selectedTripType} trip. </p>
 
-        <p>The residents in {selectedDestPlanet} are {planetResidents}</p>
+        {/* <p>The residents in {selectedDestPlanet} are {planetResidents}</p> */}
+
+        <p>You've chosen "{startValue.toDateString()}" as your start-date and "{endValue.toDateString()}" as your end-date.</p>
         
       </div>
     )
