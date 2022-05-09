@@ -1,4 +1,23 @@
-# Getting Started with Create React App
+This application was built using React, node, and npm.
+
+Npm version 8.5.3.
+Node version 16.14.0.
+
+To run this application, the user should make sure they are in the "star-tours" directory. Once in this directory, type "npm start" into your terminal.
+
+# Steps taken to build Star Tours:
+1. Created public repo at https://github.com/vfischer9/StarTours.
+2. Created an empty React application.
+3. Fetched SWAPI (The Star Wars API) data.
+4. Displayed relevant SWAPI data to the user.
+5. Utilized React Hooks to handle state change of user's chosen API values.
+6. Installed React Calendar with "npm i react-calendar" to allow user's to choose trip start and end dates.
+7. Allow user's to input data such as name, start/end dates, and trip type (one-way or round).
+8. Allow user's to click on desired SWAPI data.
+9. Displayed a trip summary at the bottom of the page.
+
+
+<!-- # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -67,4 +86,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 ### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify) -->
