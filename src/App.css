@@ -1,3 +1,54 @@
+html{
+  background-image: url(/src/components/starWars.webp);
+}
+
+button{
+  margin: 2px;
+}
+
+p{
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+body, .calendar{
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.logo{
+  font-family: 'Bangers', cursive;
+  font-size: 120px;
+  text-align: center;
+  color: yellow;
+  margin-bottom: 0;
+}
+
+.page{
+  border: solid yellow 2px;
+  margin: auto;
+  width: 75%;
+  background-color: rgba(230, 222, 222, 0.267);
+}
+
+.intro{
+  font-size: 20px;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.877);
+  text-shadow: -1.5px 0 black, 0 1.5px black, 1.5px 0 black, 0 -1.5px black;
+}
+
+.hero>*:not(.intro) {
+  font-weight: 600;
+}
+
+.white{
+  color: white;
+}
+
 #chooseNewShip, #chooseNewPlanet{
   font-size: small;
   color: red;
