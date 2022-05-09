@@ -3,7 +3,7 @@ This application was built using React, node, and npm.
 Npm version 8.5.3.
 Node version 16.14.0.
 
-To run this application, the user should make sure they are in the "star-tours" directory. Once in this directory, type "npm start" into your terminal.
+To run this application, the user should make sure they are in the second "star-tours" directory. Once in this directory, type "npm start" into your terminal.
 
 # Steps taken to build Star Tours:
 1. Created public repo at https://github.com/vfischer9/StarTours.
