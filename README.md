@@ -15,6 +15,9 @@ To run this application, the user should make sure they are in the "star-tours" 
 7. Allow user's to input data such as name, start/end dates, and trip type (one-way or round).
 8. Allow user's to click on desired SWAPI data.
 9. Displayed a trip summary at the bottom of the page.
+10. Added logic to check if start-date is after end-date.
+11. Added logic to check if the user's selected species resides in the desired destination planet. If not, the user cannot choose that planet. 
+12. Imported images of each planet and hardcoded the image to display when the selected planet state is equal to the planet name string.
 
 
 <!-- # Getting Started with Create React App
