@@ -19,6 +19,8 @@ function App() {
     const [startValue, onStartChange] = useState(new Date());
     const [endValue, onEndChange] = useState(new Date());
 
+    const [fillingOut, setFillingOut] = useState(true);
+
     useEffect(() => {
 
       async function fetchPlanets(){
@@ -108,30 +110,64 @@ function App() {
         <button id='trip-type' value="One-way" onClick={() => setSelectedTripType("one-way")}> One-way </button>
         <button id='trip-type' value="Round-trip" onClick={() => setSelectedTripType("round")}> Round-trip </button>    
 
-        <p className='white'>Please choose a start-date: </p>  
-        <div className='calendar'>
-          <Calendar onChange={onStartChange} value={startValue} />
-        </div>
-        
-        <p className='white'>Please choose an end-date: </p>
-        <div className='calendar'>
-          <Calendar onChange={onEndChange} value={endValue} />
-        </div>
-
-        <h3 className='white'>Trip Summary: </h3>
-        <div className='white'>
-          <p>You've input {passengerName} as your name. </p>
-          <p>You've selected {selectedSpecies} as your species. </p>
-          <p>You've selected {selectedDepartPlanet} as your departure planet. </p>
-          <p>You've selected {selectedDestPlanet} as your destination planet. </p>  
-          <p>You've selected the {selectedSpacecraft} as your spacecraft. </p>
-          <p>You've selected a {selectedTripType} trip. </p>
-
-          {/* <p>The residents in {selectedDestPlanet} are {planetResidents}</p> */}
-
-          <p>You've chosen "{startValue.toDateString()}" as your start-date and "{endValue.toDateString()}" as your end-date.</p>
-          <br/>
+        {selectedTripType == "one-way" &&
+          <div>
+            <p className='white'>Please choose a start-date: </p>
+            <div className='calendar'>
+              <Calendar onChange={onStartChange} value={startValue} />
+            </div>  
           </div>
+        }
+
+        {selectedTripType == "round" &&
+          <div>
+            <p className='white'>Please choose a start-date: </p>
+            <div className='calendar'>
+              <Calendar onChange={onStartChange} value={startValue} />
+            </div>  
+            <p className='white'>Please choose an end-date: </p>
+            <div className='calendar'>
+              <Calendar onChange={onEndChange} value={endValue} />
+            </div>
+          </div>
+        }
+
+        <br /><br/>
+
+        <button className='doneButton' onClick={() => setFillingOut(false)} >Show Summary</button>
+
+        <br/><br/>
+
+        <div>
+            {fillingOut == false &&
+            <div className='white shadow'>
+              <h2 className='white'>Trip Summary: </h2>
+              <p>Passenger name: {passengerName} </p>
+              <p>Selected species: {selectedSpecies} </p>
+              <p>Departing planet: {selectedDepartPlanet} </p>
+              <p>Destination planet: {selectedDestPlanet} </p>  
+              <p>Selected spacecraft: {selectedSpacecraft} </p>
+              <p>Trip type: {selectedTripType} trip. </p>
+
+              {selectedTripType == "one-way" &&
+                <p>Start Date: "{startValue.toDateString()}" </p>
+              }
+    
+              {selectedTripType == "round" &&
+                <div>
+                  <p>Start Date: "{startValue.toDateString()}" </p>
+                  <p>End Date: "{endValue.toDateString()}" </p>
+                </div>
+              }
+              {/* <p>You've chosen "{startValue.toDateString()}" as your start-date and "{endValue.toDateString()}" as your end-date.</p> */}
+              <span id='chooseNewShip'>*Blank spaces mean you did not fill out a question.</span>
+              <br /><br />
+              <button className='doneButton' onClick={() => setFillingOut(true)} >Close Summary</button>
+              <br/><br/>
+            </div>
+            }
+        </div>
+
         </div>
 
         <br/><br/><br/><br/>
